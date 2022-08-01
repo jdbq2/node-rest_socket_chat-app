@@ -42,39 +42,30 @@
                     Logout
                 </button>
             </div>
+
+            <div class="col-sm-6 mt-2">
+                <h1>Login Manual</h1>
+                <hr />
+
+                <form>
+                    <input
+                        type="text"
+                        name="correo"
+                        class="form-control mb-2"
+                        placeholder="email"
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control mb-2"
+                        placeholder="password"
+                    />
+                    <button class="btn btn-primary" type="submit">
+                        Ingresar
+                    </button>
+                </form>
+            </div>
         </div>
-
-        <script>
-            function handleCredentialResponse(response) {
-                const body = { id_token: response.credential };
-                fetch("http://localhost:8080/api/auth/google", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(body),
-                })
-                    .then((resp) => resp.json())
-                    .then((resp) => {
-                        console.log(resp);
-                        localStorage.setItem("email", resp.usuario.correo);
-                    })
-                    .catch((err) => console.warn(err));
-            }
-
-            document
-                .getElementById("google_sign_out")
-                .addEventListener("click", () => {
-                    console.log(google.accounts.id);
-                    google.accounts.id.disableAutoSelect();
-                    google.accounts.id.revoke(
-                        localStorage.getItem("email"),
-                        (done) => {
-                            localStorage.clear();
-                            location.reload();
-                        }
-                    );
-                });
-        </script>
+        <script src="./js/auth.js"></script>
     </body>
 </html>
