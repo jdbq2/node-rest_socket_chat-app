@@ -14,6 +14,7 @@ function handleCredentialResponse(response) {
             console.log(resp);
             localStorage.setItem("email", resp.usuario.correo);
             localStorage.setItem("token", resp.token);
+            window.location = "chat.html";
         })
         .catch((err) => console.warn(err));
 }
@@ -35,7 +36,7 @@ formulario.addEventListener("submit", (e) => {
             formData[el.name] = el.value;
         }
     }
-    console.log(formData);
+
     fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
         body: JSON.stringify(formData),
@@ -46,6 +47,9 @@ formulario.addEventListener("submit", (e) => {
         .then((resp) => {
             return resp.json();
         })
-        .then((data) => localStorage.setItem("token", data.token))
+        .then((data) => {
+            localStorage.setItem("token", data.token);
+            window.location = "chat.html";
+        })
         .catch((err) => console.log(err));
 });
